@@ -29,14 +29,15 @@ def home(request):
 
 
 def services(request):
-    # services = Service.objects.all()
-    # context = {
-    #     "services": services,
-    # }
+    services = Service.objects.all()
+    context = {
+        "services": services,
+    }
 
     return render(
         request,
-        'website/services.html')
+        'website/services.html',
+        context)
 
 
 def reservation(request):
@@ -45,11 +46,13 @@ def reservation(request):
         'website/reservation.html'
     )
 
+
 def contact(request):
     return render(
         request,
         'website/contact.html'
     )
+
 
 def about(request):
     return render(
@@ -64,14 +67,16 @@ def gallery(request):
         'website/gallery.html'
     )
 
-def login(request):
+
+
+def register_new_user(request):
     if request.method == "POST":
         form = NewUserForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, "Registration successful.")
-            return redirect("website:index")
-        messages.error(request, "Unsuccessful registration. Invalid information.")
+            messages.success(request, "Rejestracja zakończona powodzeniem.")
+            return redirect("website:home")
+        messages.error(request, "Niepowodzenie! Błąd przy wprowadzaniu danych.")
     form = NewUserForm()
-    return render(request=request, template_name="website/login.html", context={"register_form": form})
+    return render(request, template_name="website/register_new_user.html", context={"register_form": form})

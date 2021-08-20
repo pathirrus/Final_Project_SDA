@@ -3,4 +3,7 @@
 {% block content %}
 Services
 Usługi
+{% for service in services %}
+<li>Usługa {{ service}} Cena {{service.price }} Czas usługi {{service.time_of_service }}</li>
+{% endfor %}
 {% endblock %}
