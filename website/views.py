@@ -1,7 +1,8 @@
+from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from datetime import datetime
+from django.conf import settings
 from .models import *
 from .forms import NewUserForm
 from django.contrib.auth import login
@@ -9,22 +10,20 @@ from django.contrib import messages
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-# Create your views here.
+class StaffRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
 
-# def test(request):
-#     now = datetime.now()
-#
-#     return render(
-#         request,
-#         'website/test.html',
-#         context = {
-#         "now": now
-#         }
-#     )
+    def handle_no_permission(self):
+        return redirect('login')
 
-class ServiceCreateView(CreateView):
+    def test_func(self):
+        return self.request.user.is_staff
+
+
+class ServiceCreateView(StaffRequiredMixin, CreateView):
     model = Service
     fields = [
         'service_name',
@@ -33,7 +32,8 @@ class ServiceCreateView(CreateView):
     ]
 
 
-class ServiceUpdateView(UpdateView):
+class ServiceUpdateView(StaffRequiredMixin, UpdateView):
+
     model = Service
     fields = [
         'service_name',
@@ -43,7 +43,7 @@ class ServiceUpdateView(UpdateView):
     template_name_suffix = '_update'
 
 
-class ServiceDeleteView(DeleteView):
+class ServiceDeleteView(StaffRequiredMixin, DeleteView):
     model = Service
     success_url = reverse_lazy('website:services')
 

@@ -1,8 +1,12 @@
 {% extends 'website/base.html' %}
 
 {% block content %}
-ZALOGUJ SIĘ TUTEJ!
 
+{% if user.is_authenticated %}
+Jesteś zalogowany jako <b>{{ user }}</b>.
+
+{% else %}
+<h2>ZALOGUJ SIĘ TUTAJ!</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p}}
@@ -15,5 +19,6 @@ Nie masz konta? Załuż je!
 
     <input type="submit" value="Zarejestruj!">
 </form>
+{% endif %}
 {% endblock %}
 

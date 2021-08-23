@@ -7,7 +7,7 @@ from django.contrib import admin
 app_name = 'website'
 
 urlpatterns = [
-    # path('',views.test, name='test'),
+
     path('', views.home, name='home'),
     path('welcome/', views.welcome, name='welcome'),
     path('logout_user/', views.logout_user, name='logout_user'),
@@ -17,7 +17,7 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('about/', views.about, name='about'),
     path('gallery/', views.gallery, name='gallery'),
-    # path('login/', views.login, name='login'),
+
     path('register_new_user/', views.register_new_user, name='register_new_user'),
     path('user-account/', views.user_account, name='user_account'),
 
