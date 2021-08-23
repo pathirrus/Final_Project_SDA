@@ -1,10 +1,15 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from datetime import datetime
 from .models import *
 from .forms import NewUserForm
 from django.contrib.auth import login
 from django.contrib import messages
+from django.views.generic.edit import CreateView
+from django.views.generic.edit import UpdateView
+from django.views.generic.edit import DeleteView
+
 
 # Create your views here.
 
@@ -19,6 +24,29 @@ from django.contrib import messages
 #         }
 #     )
 
+class ServiceCreateView(CreateView):
+    model = Service
+    fields = [
+        'service_name',
+        "price",
+        'time_of_service'
+    ]
+
+
+class ServiceUpdateView(UpdateView):
+    model = Service
+    fields = [
+        'service_name',
+        "price",
+        'time_of_service'
+    ]
+    template_name_suffix = '_update'
+
+
+class ServiceDeleteView(DeleteView):
+    model = Service
+    success_url = reverse_lazy('website:services')
+
 
 def home(request):
     return render(
@@ -29,9 +57,9 @@ def home(request):
 
 
 def services(request):
-    services = Service.objects.all()
+    service = Service.objects.all()
     context = {
-        "services": services,
+        "services": service,
     }
 
     return render(
@@ -76,7 +104,27 @@ def register_new_user(request):
             user = form.save()
             login(request, user)
             messages.success(request, "Rejestracja zakończona powodzeniem.")
-            return redirect("website:home")
+            return redirect("website:welcome")
         messages.error(request, "Niepowodzenie! Błąd przy wprowadzaniu danych.")
     form = NewUserForm()
     return render(request, template_name="website/register_new_user.html", context={"register_form": form})
+
+
+def welcome(request):
+    return render(
+        request,
+        'website/welcome.html'
+    )
+
+def logout_user(request):
+    return render(
+        request,
+        'website/logout_user.html'
+    )
+
+
+def user_account(request):
+    return render(
+        request,
+        'website/user_account.html'
+    )

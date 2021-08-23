@@ -1,0 +1,10 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+Do zobaczenia!
+<form method="get" action="{% url 'login' %}">
+
+    <input type="submit" value="Zaloguj się!">
+</form>
+
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 
 # Create your models here.
 
@@ -14,12 +15,15 @@ class User(models.Model):
 
 
 class Service(models.Model):
-    service_name = models.CharField(max_length=120, verbose_name="Usługa")
+    service_name = models.CharField(max_length=60, verbose_name="Usługa")
     price = models.IntegerField(verbose_name="Cena [zł]")
     time_of_service = models.FloatField(verbose_name="Czas [h]")
 
     def __str__(self):
         return self.service_name
+
+    def get_absolute_url(self):
+        return reverse('website:services')
 
 
 class Reservation(models.Model):

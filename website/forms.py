@@ -3,21 +3,17 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from website.models import Service
 from django.core.validators import RegexValidator
+# from website.models import User
 
 
 class NewUserForm(UserCreationForm):
-    # name = forms.CharField(max_length=20, required=True)
-
-    # surname = forms.CharField(max_length=30)
     email = forms.EmailField(required=True)
-    # phone_number = forms.CharField(max_length=9, validators=[
-    #     RegexValidator(
-    #         r'^[0-9]{9}',
-    #         message='Podaj 9 cyfr swojego numeru telefonu')])
+    first_name = forms.CharField(max_length=30, required=False, label="Imię", help_text='Opcjonalnie.')
+    last_name = forms.CharField(max_length=30, required=False, label="Nazwisko", help_text='Opcjonalnie.')
 
     class Meta:
         model = User
-        fields = ("username", "email", "password1", "password2")
+        fields = ("username", "first_name", "last_name", "email", "password1", "password2")
 
     def save(self, commit=True):
         user = super(NewUserForm, self).save(commit=False)
@@ -30,12 +26,3 @@ class NewUserForm(UserCreationForm):
 
 
 
-# class ServiceForm(forms.ModelForm):
-#     class Meta:
-#         model = Service
-#         fields = '__all__'
-#         labels = {
-#             "service_name": "Usługa",
-#             "price": "Cena [zł]",
-#             "time_of_service": "Czas usługi [h]"
-#         }

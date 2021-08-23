@@ -1,0 +1,9 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <input type="submit" value="Wyloguj">
+</form>
+Edytuj konto
+{% endblock %}

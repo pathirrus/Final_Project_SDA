@@ -1,9 +1,27 @@
 {% extends 'website/base.html' %}
 
+
+
 {% block content %}
-Services
-Usługi
-{% for service in services %}
-<li>Usługa {{ service}} Cena {{service.price }} Czas usługi {{service.time_of_service }}</li>
-{% endfor %}
+
+    Usługi
+    {% if user.is_superuser %}
+        {% for service in services %}
+            <li>Usługa {{ service}} Cena {{service.price }} Czas usługi {{service.time_of_service }}
+
+                <a href="/update-service/{{service.id}}"><input type="button" value="Edytuj"></a>
+                <a href="/delete-service/{{service.id}}"><input type="button"  value="Usuń"></a>
+
+            </li>
+
+        {% endfor %}
+
+            <a href=  '/create-service'>
+                <input type="button" value="Dodaj nową usługę">
+            </a>
+    {% else %}
+        {% for service in services %}
+         <li>Usługa {{ service}} Cena {{service.price }} Czas usługi {{service.time_of_service }}</li>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

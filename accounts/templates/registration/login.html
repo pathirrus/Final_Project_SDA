@@ -1,0 +1,19 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+ZALOGUJ SIĘ TUTEJ!
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p}}
+
+    <input type="submit" value="Zaloguj">
+</form>
+<br>
+Nie masz konta? Załuż je!
+<form method="get" action="{% url 'website:register_new_user' %}">
+
+    <input type="submit" value="Zarejestruj!">
+</form>
+{% endblock %}
+
