@@ -1,21 +1,21 @@
 from django.db import models
 from django.shortcuts import reverse
-from django.contrib.auth.models import User
-from django.conf import settings
-
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import AbstractUser, PermissionsMixin, BaseUserManager
 
 # Create your models here.
 
 
 #
-class User(models.Model):
-    name = models.CharField(max_length=30, verbose_name="Imię")
-    surname = models.CharField(max_length=30, verbose_name="Nazwisko")
-    email = models.EmailField()
-    phone_number = models.CharField(max_length=9, verbose_name="Telefon")
+# class User(models.Model):
+#     name = models.CharField(max_length=30, verbose_name="Imię")
+#     surname = models.CharField(max_length=30, verbose_name="Nazwisko")
+#     email = models.EmailField()
+#     phone_number = models.CharField(max_length=9, verbose_name="Telefon")
 
-    def __str__(self):
-        return f"{self.name}, {self.surname}, telefon: {self.phone_number}"
+    # def __str__(self):
+    #     return f"{self.name}, {self.surname}, telefon: {self.phone_number}"
 
 
 class Service(models.Model):
@@ -31,9 +31,9 @@ class Service(models.Model):
 
 
 class Reservation(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Klient")
+    # user_id = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Klient")
     service_id = models.ForeignKey(Service, on_delete=models.CASCADE, verbose_name="Usługa")
     visit_date = models.DateTimeField(verbose_name="Termin wizyty")
 
     def __str__(self):
-        return f"{self.user_id} na {self.service_id}"
+        return f"{self.visit_date} na {self.service_id}"
