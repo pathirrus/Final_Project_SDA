@@ -108,6 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -133,5 +134,7 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-LOGIN_REDIRECT_URL = reverse_lazy('website:welcome')
-LOGOUT_REDIRECT_URL = reverse_lazy('website:logout_user')
+LOGIN_REDIRECT_URL = reverse_lazy('accounts:welcome')
+LOGOUT_REDIRECT_URL = reverse_lazy('accounts:logout_user')
+
+

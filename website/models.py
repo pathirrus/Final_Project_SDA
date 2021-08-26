@@ -1,9 +1,13 @@
 from django.db import models
 from django.shortcuts import reverse
+from django.contrib.auth.models import User
+from django.conf import settings
+
 
 # Create your models here.
 
 
+#
 class User(models.Model):
     name = models.CharField(max_length=30, verbose_name="Imię")
     surname = models.CharField(max_length=30, verbose_name="Nazwisko")

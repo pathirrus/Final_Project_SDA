@@ -23,7 +23,7 @@
 
 <li>
     {% if user.is_authenticated %}
-         <a href="{% url 'website:user_account' %}" >Twoje konto</a>
+         <a href="{% url 'accounts:user_account' %}" >Twoje konto</a>
     {% else %}
          <a href="{% url 'login' %}"> Zaloguj</a>
     {% endif %}

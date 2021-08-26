@@ -97,34 +97,3 @@ def gallery(request):
 
 
 
-def register_new_user(request):
-    if request.method == "POST":
-        form = NewUserForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, "Rejestracja zakończona powodzeniem.")
-            return redirect("website:welcome")
-        messages.error(request, "Niepowodzenie! Błąd przy wprowadzaniu danych.")
-    form = NewUserForm()
-    return render(request, template_name="website/register_new_user.html", context={"register_form": form})
-
-
-def welcome(request):
-    return render(
-        request,
-        'website/welcome.html'
-    )
-
-def logout_user(request):
-    return render(
-        request,
-        'website/logout_user.html'
-    )
-
-
-def user_account(request):
-    return render(
-        request,
-        'website/user_account.html'
-    )
