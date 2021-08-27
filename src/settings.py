@@ -130,3 +130,4 @@ AUTH_USER_MODEL = 'accounts.NewUser'
 
 LOGIN_REDIRECT_URL = reverse_lazy('accounts:welcome')
 LOGOUT_REDIRECT_URL = reverse_lazy('accounts:logout_user')
+

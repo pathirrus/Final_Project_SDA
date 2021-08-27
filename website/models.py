@@ -1,22 +1,8 @@
 from django.db import models
 from django.shortcuts import reverse
-from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractUser, PermissionsMixin, BaseUserManager
+
 
 # Create your models here.
-
-
-#
-# class User(models.Model):
-#     name = models.CharField(max_length=30, verbose_name="Imię")
-#     surname = models.CharField(max_length=30, verbose_name="Nazwisko")
-#     email = models.EmailField()
-#     phone_number = models.CharField(max_length=9, verbose_name="Telefon")
-
-    # def __str__(self):
-    #     return f"{self.name}, {self.surname}, telefon: {self.phone_number}"
-
 
 class Service(models.Model):
     service_name = models.CharField(max_length=60, verbose_name="Usługa")
