@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from website.forms import NewUserForm
+from accounts.forms import ProfileEditForm
 from django.contrib.auth import login
 from django.contrib import messages
-from django.shortcuts import HttpResponseRedirect, get_object_or_404
 from django.urls import reverse
-from django.forms.models import model_to_dict
-from .models import NewUser
-# from .forms import UserEditForm
+from django.contrib.auth.decorators import login_required
+from accounts.models import NewUser
+
 
 # Create your views here.
 
@@ -39,22 +39,28 @@ def logout_user(request):
     )
 
 
-def user_account(request):
+def profile(request):
     return render(
         request,
-        'accounts/user_account.html'
+        'accounts/profile.html'
     )
 
 
-# def edit_profile(request, user_id):
-#     user = get_object_or_404(NewUser, pk=user_id)
-#     if request.method == "GET":
-#         form = UserEditForm(initial=model_to_dict(user))
-#         return render(request, 'accounts/edit_profile.html', {'form': form})
-#     elif request.method == "POST":
-#         form = UserEditForm(request.POST, instance=user)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect(reverse('user_profile', kwargs={'uid': user.id}))
-#         else:
-#             return HttpResponseRedirect(reverse('some_fail_loc'))
+
+@login_required
+def edit_profile(request):
+
+    if request.method == 'POST':
+        form = ProfileEditForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('accounts:profile'))
+        else:
+            args = {'form': form}
+            return render(request, 'accounts/edit_profile.html', args)
+
+    else:
+        form = ProfileEditForm(instance=request.user)
+        args = {'form': form}
+        return render(request, 'accounts/edit_profile.html', args)

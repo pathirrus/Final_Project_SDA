@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-
+from django.core.validators import RegexValidator
 
 # Create your models here.
 
@@ -41,7 +41,10 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     user_name = models.CharField(max_length=150, unique=True, verbose_name='Nazwa użytkownika')
     first_name = models.CharField(max_length=150, blank=True, verbose_name='Imię')
     last_name = models.CharField(max_length=150, blank=True, verbose_name='Nazwisko')
-    phone_number = models.CharField(max_length=9, blank=True, verbose_name='Numer telefonu')
+
+    phone_regex = RegexValidator(regex=r'^[0-9]{9}$', message="Wprowadź prawidłowy numer telefonu")
+    phone_number = models.CharField(validators=[phone_regex], max_length=9, blank=True, verbose_name='Numer telefonu')
+
     start_date = models.DateTimeField(default=timezone.now)
     about = models.TextField(_(
         'about'), max_length=500, blank=True)
@@ -55,3 +58,4 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.user_name
+

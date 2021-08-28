@@ -1,7 +1,7 @@
 {% extends 'website/base.html' %}
 
 {% block content %}
-Witaj
+Witaj,
     {% if user.is_authenticated%}
     {{ user }} w salonie "PAZURKI
 <form method="post" action="{% url 'logout' %}">

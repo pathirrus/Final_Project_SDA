@@ -6,7 +6,6 @@ from django.forms import TextInput, Textarea
 # Register your models here.
 
 
-
 class UserAdminConfig(UserAdmin):
     model = NewUser
     search_fields = ('email', 'user_name', 'first_name',)
@@ -15,7 +14,7 @@ class UserAdminConfig(UserAdmin):
     list_display = ('email', 'user_name', 'first_name', 'last_name', 'phone_number', 'is_active', 'is_staff')
 
     fieldsets = (
-        (None, {'fields': ('email', 'user_name', 'first_name',)}),
+        (None, {'fields': ('email', 'user_name', 'first_name', 'last_name', 'phone_number')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
         ('Personal', {'fields': ('about',)}),
     )

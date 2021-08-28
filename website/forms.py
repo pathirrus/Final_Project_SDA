@@ -8,7 +8,6 @@ class NewUserForm(UserCreationForm):
         model = NewUser
         fields = ('email', 'user_name', 'first_name', 'password1', 'password2')
 
-
     def create_user(self, email, user_name, first_name, password, **other_fields):
 
         if not email:
