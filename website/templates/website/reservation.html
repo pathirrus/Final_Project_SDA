@@ -2,5 +2,19 @@
 
 {% block content %}
 Reservation
-Umów swoją wizytę
+    {% if user.is_authenticated %}
+        Zarezerwuj wizytę online:
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p}}
+
+    <input type="submit" value="Rezerwuj">
+</form>
+    {% else %}
+        Zaloguj się, aby zarezerwować wizytę online.
+        <form method="get" action="{% url 'login' %}">
+            <input type="submit" value="Zaloguj się!">
+        </form>
+    {% endif %}
+
 {% endblock %}

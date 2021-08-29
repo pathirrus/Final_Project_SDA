@@ -1,5 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from accounts.models import NewUser
+from website.models import Reservation
+from django import forms
 
 
 class NewUserForm(UserCreationForm):
@@ -20,4 +22,24 @@ class NewUserForm(UserCreationForm):
         return user
 
 
+class ReservationForm(forms.ModelForm):
 
+    AppointmentDate = forms.CharField(widget=forms.TextInput(attrs={
+
+        'placeholder': 'Date',
+        'class': 'appointment_date'
+
+    }))
+
+    AppointmentTime = forms.CharField(widget=forms.TextInput(attrs={
+
+        'placeholder': 'Time ',
+        'class': 'appointment_time'
+    }))
+
+    class Meta:
+        model = Reservation
+        fields = [
+            'service_id',
+            'visit_date',
+        ]

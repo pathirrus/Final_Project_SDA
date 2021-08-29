@@ -1,5 +1,7 @@
+import datetime
 from django.db import models
 from django.shortcuts import reverse
+from accounts.models import NewUser
 
 
 # Create your models here.
@@ -17,9 +19,9 @@ class Service(models.Model):
 
 
 class Reservation(models.Model):
-    # user_id = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Klient")
+    user_id = models.OneToOneField(NewUser, on_delete=models.CASCADE, verbose_name="Klient")
     service_id = models.ForeignKey(Service, on_delete=models.CASCADE, verbose_name="Usługa")
     visit_date = models.DateTimeField(verbose_name="Termin wizyty")
 
     def __str__(self):
-        return f"{self.visit_date} na {self.service_id}"
+        return f"{self.user_id} {self.visit_date} na {self.service_id}"

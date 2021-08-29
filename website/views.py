@@ -1,17 +1,13 @@
-from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.conf import settings
-from .models import *
-from .forms import NewUserForm
-from django.contrib.auth import login
-from django.contrib import messages
+from .models import Service
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from website.forms import ReservationForm
 
 
 class StaffRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
@@ -69,10 +65,12 @@ def services(request):
 
 
 def reservation(request):
+
+    if request.method == "POST":
+        form = ReservationForm(request.POST)
     return render(
         request,
-        'website/reservation.html'
-    )
+        'website/reservation.html')
 
 
 def contact(request):

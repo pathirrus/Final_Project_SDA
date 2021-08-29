@@ -6,7 +6,7 @@ from django.contrib.auth import login
 from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from accounts.models import NewUser
+
 
 
 # Create your views here.
@@ -44,7 +44,6 @@ def profile(request):
         request,
         'accounts/profile.html'
     )
-
 
 
 @login_required

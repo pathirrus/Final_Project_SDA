@@ -1,7 +1,6 @@
-from django.urls import path, include
-from accounts import *
+from django.urls import path
 from accounts import views
-from django.contrib import admin
+
 
 app_name = 'accounts'
 
