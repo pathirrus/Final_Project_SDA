@@ -1,32 +1,26 @@
 
-<h1>Salon kosmatyczny "PAZURKI"</h1>
-<li>
-    <a href="{% url 'website:home' %}">Salon</a>
-</li>
-<li>
-    <a href="{% url 'website:services' %}" >Usługi</a>
-</li>
-<li>
-    <a href="{% url 'website:contact' %}" >Kontakt</a>
-</li>
-<li>
-    <a href="{% url 'website:reservation' %}" >Rezerwacja Online</a>
-</li>
+<div class="header">
 
-<li>
-    <a href="{% url 'website:about' %}" >O mnie</a>
-</li>
+    <a class="logo" href="{% url 'website:home' %}">Twoje Pazurki</a>
+    <div class="header-right">
 
-<li>
-    <a href="{% url 'website:gallery' %}" >Galeria</a>
-</li>
+        <a href="{% url 'website:home' %}">Salon</a>
 
-<li>
-    {% if user.is_authenticated %}
-         <a href="{% url 'accounts:profile' %}" >Twoje konto</a>
-    {% else %}
-         <a href="{% url 'login' %}"> Zaloguj</a>
-    {% endif %}
+        <a href="{% url 'website:services' %}" >Usługi</a>
 
+        <a href="{% url 'website:contact' %}" >Kontakt</a>
 
-</li>
+        <a href="{% url 'website:reservation' %}" >Rezerwacja Online</a>
+
+        <a href="{% url 'website:about' %}" >O mnie</a>
+
+        <a href="{% url 'website:gallery' %}" >Galeria</a>
+
+        {% if user.is_authenticated %}
+             <a href="{% url 'accounts:profile' %}" >Twoje konto</a>
+        {% else %}
+             <a href="{% url 'login' %}"> Zaloguj</a>
+        {% endif %}
+
+</div>
+</div>
