@@ -24,22 +24,12 @@ class NewUserForm(UserCreationForm):
 
 class ReservationForm(forms.ModelForm):
 
-    AppointmentDate = forms.CharField(widget=forms.TextInput(attrs={
-
-        'placeholder': 'Date',
-        'class': 'appointment_date'
-
-    }))
-
-    AppointmentTime = forms.CharField(widget=forms.TextInput(attrs={
-
-        'placeholder': 'Time ',
-        'class': 'appointment_time'
-    }))
-
     class Meta:
         model = Reservation
         fields = [
             'service_id',
             'visit_date',
+            'start_time_visit',
+
         ]
+

@@ -6,9 +6,13 @@ Reservation
         Zarezerwuj wizytę online:
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p}}
+    {{ form.as_p }}
+    Dzisiejsza data: {{ start_date }}
+    <p>max data:{{ end_date }}
 
+    {{ date_list }}
     <input type="submit" value="Rezerwuj">
+    {{ available_hours }}
 </form>
     {% else %}
         Zaloguj się, aby zarezerwować wizytę online.

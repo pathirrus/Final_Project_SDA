@@ -5,7 +5,7 @@
     Usługi
     {% if user.is_superuser %}
         {% for service in services %}
-            <li>Usługa {{ service}} Cena {{service.price }} Czas usługi {{service.time_of_service }}
+            <li>Usługa {{ service}} Cena {{service.price }} Czas usługi {{service.time_of_service }} minut.
 
                 <a href="/update-service/{{service.id}}"><input type="button" value="Edytuj"></a>
                 <a href="/delete-service/{{service.id}}"><input type="button"  value="Usuń"></a>
@@ -19,7 +19,7 @@
             </a>
     {% else %}
         {% for service in services %}
-         <li>Usługa {{ service}} Cena {{service.price }} Czas usługi {{service.time_of_service }}</li>
+         <li>Usługa {{ service}} Cena {{service.price }} Czas usługi {{service.time_of_service }} minut.</li>
         {% endfor %}
     {% endif %}
 {% endblock %}

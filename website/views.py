@@ -1,7 +1,9 @@
+from datetime import datetime, date, timedelta
+
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from .models import Service
+from website.models import Service
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
@@ -63,14 +65,37 @@ def services(request):
         'website/services.html',
         context)
 
+####################################################
 
 def reservation(request):
 
+    start_date = date.today()
+    rdate = start_date
+    end_date = start_date + timedelta(days=7)
+
+    date_list = [start_date]
+
+    while rdate < end_date:
+        rdate += timedelta(days=1)
+        date_list.append(rdate)
+
+
     if request.method == "POST":
         form = ReservationForm(request.POST)
+
+    context = {
+
+        'date_list': date_list,
+        'start_date': start_date,
+        'end_date':end_date,
+    }
+
     return render(
         request,
-        'website/reservation.html')
+        'website/reservation.html',
+        context
+        )
+
 
 
 def contact(request):
@@ -92,6 +117,9 @@ def gallery(request):
         request,
         'website/gallery.html'
     )
+
+
+
 
 
 
