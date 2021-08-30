@@ -1,17 +1,16 @@
 {% extends 'website/base.html' %}
-
 {% block content %}
 
 {% load crispy_forms_tags %}
 
-<h2>Stwórz nowe konto</h2>
+<h1>Stwórz nowe konto</h1>
 
-<div class="container py-5">
-	<h1>Rejestracja</h1>
+<div >
+	<h2>Rejestracja</h2>
 	<form method="POST">
 		{% csrf_token %}
-		{{ register_form|crispy }}
-		<button class="btn btn-primary" type="submit">Zarejestruj</button>
+		{{ register_form }}
+		<br> <button type="submit">Zarejestruj</button>
 	</form>
 	<p class="text-center">Jeśli posiadasz już konto,to <a href="/login">zaloguj</a> się.</p>
 </div>
