@@ -1,17 +1,17 @@
 {% extends 'website/base.html' %}
 
 {% block content %}
-Reservation
-    {% if user.is_authenticated %}
-        Zarezerwuj wizytę online:
+{% if user.is_authenticated %}
+<h2>Zarezerwuj wizytę online:</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    Dostępne daty
+    Dostępne daty<br>
     <form>
         {% for d in date_list %}
-
-          <input type="radio" name="data" value="{{d}}" >{{d}}<br>
+        <li>
+          <input type="radio" name="data" value="{{d}}" >{{d}}
+        </li>
         {% endfor %}
     </form>
 
