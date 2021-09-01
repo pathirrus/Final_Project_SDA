@@ -69,15 +69,31 @@ def services(request):
 
 def reservation(request):
 
+    # start_date = date.today()
+    # rdate = start_date
+    # end_date = start_date + timedelta(days=14)
+    # sunday = [7]
+    # date_list = [start_date]
+    # days_list = [start_date]
+    # while rdate < end_date:
+    #     rdate += timedelta(days=1)
+    #
+    #     date_list.append(rdate)
+    #
+    # for days in date_list:
+    #     if days.isoweekday() not in sunday:
+    #         days_list.append(days)
+
     start_date = date.today()
     rdate = start_date
-    end_date = start_date + timedelta(days=7)
-
+    end_date = start_date + timedelta(days=14)
+    sunday = [7]
     date_list = [start_date]
 
     while rdate < end_date:
         rdate += timedelta(days=1)
-        date_list.append(rdate)
+        if rdate.isoweekday() not in sunday:
+            date_list.append(rdate)
 
 
     if request.method == "POST":
@@ -86,8 +102,7 @@ def reservation(request):
     context = {
 
         'date_list': date_list,
-        'start_date': start_date,
-        'end_date':end_date,
+
     }
 
     return render(

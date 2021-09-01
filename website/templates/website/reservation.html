@@ -7,12 +7,20 @@ Reservation
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    Dzisiejsza data: {{ start_date }}
-    <p>max data:{{ end_date }}
+    Dostępne daty
+    <form>
+        {% for d in date_list %}
 
-    {{ date_list }}
+          <input type="radio" name="data" value="{{d}}" >{{d}}<br>
+        {% endfor %}
+    </form>
+
+
     <input type="submit" value="Rezerwuj">
+
+
     {{ available_hours }}
+
 </form>
     {% else %}
         Zaloguj się, aby zarezerwować wizytę online.
