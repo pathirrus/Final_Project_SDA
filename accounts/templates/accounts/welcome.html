@@ -1,0 +1,22 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+Witaj,
+    {% if user.is_authenticated%}
+    {{ user }} w salonie "PAZURKI
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <input type="submit" value="Wyloguj">
+</form>
+    {% else %}
+    nieznajomy w salonie "PAZURKI
+<form method="get" action="{% url 'login' %}">
+
+    <input type="submit" value="Zaloguj się!">
+</form>
+    {% endif %}
+
+
+
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h2>Zarezerwuj wizytę online:</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    Dostępne daty<br>
+    <form>
+        {% for d in date_list %}
+        <li>
+          <input type="radio" name="data" value="{{d}}" >{{d}}
+        </li>
+        {% endfor %}
+    </form>
+
+
+    <input type="submit" value="Rezerwuj">
+
+
+    {{ available_hours }}
+
+</form>
+    {% else %}
+        Zaloguj się, aby zarezerwować wizytę online.
+        <form method="get" action="{% url 'login' %}">
+            <input type="submit" value="Zaloguj się!">
+        </form>
+    {% endif %}
+
+{% endblock %}
