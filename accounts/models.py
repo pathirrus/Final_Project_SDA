@@ -29,6 +29,9 @@ class CustomAccountManager(BaseUserManager):
         if not email:
             raise ValueError(_('Musisz wprowadzić adres email'))
 
+        if not user_name:
+            raise ValueError(_('Wprowadź nazwę użytkownika'))
+
         email = self.normalize_email(email)
         user = self.model(email=email, user_name=user_name, first_name=first_name, **other_fields)
         user.set_password(password)
@@ -37,8 +40,8 @@ class CustomAccountManager(BaseUserManager):
 
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(_('Adres email'), unique=True)
-    user_name = models.CharField(max_length=150, unique=True, verbose_name='Nazwa użytkownika')
+    email = models.EmailField(_('Adres email*'), unique=True)
+    user_name = models.CharField(max_length=150, unique=True, verbose_name='Nazwa użytkownika*')
     first_name = models.CharField(max_length=150, blank=True, verbose_name='Imię')
     last_name = models.CharField(max_length=150, blank=True, verbose_name='Nazwisko')
 
