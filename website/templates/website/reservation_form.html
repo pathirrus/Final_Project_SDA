@@ -1,0 +1,14 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Dodaj usługę:</h2>
+
+    <form method="post" id="personForm" action="{% url 'website:create-reservation' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Dodaj usługę">
+    </form>
+
+    <script src="{% static 'website/index.js' %}"></script>
+{% endblock %}

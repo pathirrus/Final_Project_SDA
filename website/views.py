@@ -2,8 +2,10 @@ from datetime import datetime, date, timedelta
 
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse_lazy
 from website.models import Service
+from website.models import Reservation
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
@@ -134,7 +136,38 @@ def gallery(request):
     )
 
 
+class ReservationCreateView(CreateView):
+    model = Reservation
+    form_class = ReservationForm
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.user_id = self.request.user
+        obj.save()
+        return HttpResponseRedirect(reverse_lazy('website:reservation'))
 
 
+def get_available_hours(request):
 
+    # Wyciągamy z requesta parametry get
+    service_id = request.GET.get('service_id')
+    visit_date = request.GET.get('date')
+
+    # Całą logikę związaną z wyciąganiem dostępnych godzin przeniosłem do
+    # modelu zgodnie ze wzorcem "fat model, skinny views"
+    # (aka fat model, skinny controller). Czyli zamiast tutaj tworzyć widok z wieloma
+    # linijkami kodu, tworzę nową metodę w odpowiednim modelu i tam umieszczam te
+    # linijki kodu. Dostępne godziny zwraca mi metoda get_available_hours modelu Reservation
+    available_hours = Reservation().get_available_hours(
+        service_id,
+        visit_date
+    ) if service_id and visit_date else []
+
+    return render(
+        request,
+        'website/available_hours_dropdown_list_option.html',
+        context={
+            'available_hours': available_hours
+        }
+    )
 

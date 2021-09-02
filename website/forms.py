@@ -22,6 +22,10 @@ class NewUserForm(UserCreationForm):
         return user
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class ReservationForm(forms.ModelForm):
 
     class Meta:
@@ -30,6 +34,9 @@ class ReservationForm(forms.ModelForm):
             'service_id',
             'visit_date',
             'start_time_visit',
-
         ]
+        widgets = {
+            'visit_date': DateInput(),
+            'start_time_visit': forms.Select()
+        }
 
