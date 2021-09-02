@@ -1,0 +1,12 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+<h2>Edytuj usługę:</h2>
+
+    <form method="post">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Zapisz zmiany">
+    </form>
+{% endblock %}

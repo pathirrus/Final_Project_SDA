@@ -1,0 +1,21 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+
+<h2>Profil użytkownika</h2>
+<p>Nazwa użytkownika: {{ user }}</p>
+<p>Imię: {{ user.first_name }}</p>
+<p>Nazwisko: {{ user.last_name }}</p>
+<p>E-mail: {{ user.email }}</p>
+<p>Telefon: {{ user.phone_number }}</p>
+
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <input type="submit" value="Wyloguj">
+</form>
+
+ <a href="{% url 'accounts:edit-profile' %}"><input type="button" value="Edytuj dane"></a>
+
+
+{% endblock %}
+
