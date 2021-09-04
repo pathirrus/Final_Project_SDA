@@ -2,8 +2,10 @@ from datetime import datetime, date, timedelta
 
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse_lazy
 from website.models import Service
+from website.models import Reservation
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
@@ -67,35 +69,13 @@ def services(request):
 
 ####################################################
 
+
 def reservation(request):
-
-    start_date = date.today()
-    rdate = start_date
-    end_date = start_date + timedelta(days=7)
-
-    date_list = [start_date]
-
-    while rdate < end_date:
-        rdate += timedelta(days=1)
-        date_list.append(rdate)
-
-
-    if request.method == "POST":
-        form = ReservationForm(request.POST)
-
-    context = {
-
-        'date_list': date_list,
-        'start_date': start_date,
-        'end_date':end_date,
-    }
 
     return render(
         request,
         'website/reservation.html',
-        context
-        )
-
+    )
 
 
 def contact(request):
@@ -119,7 +99,30 @@ def gallery(request):
     )
 
 
+class ReservationCreateView(CreateView):
+    model = Reservation
+    form_class = ReservationForm
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.user_id = self.request.user
+        obj.save()
+        return HttpResponseRedirect(reverse_lazy('website:reservation'))
 
 
+def get_available_hours(request):
+    service_id = request.GET.get('service_id')
+    visit_date = request.GET.get('date')
 
+    available_hours = Reservation().get_available_hours(
+        service_id,
+        visit_date
+    ) if service_id and visit_date else []
 
+    return render(
+        request,
+        'website/available_hours_dropdown_list_option.html',
+        context={
+            'available_hours': available_hours
+        }
+    )

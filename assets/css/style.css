@@ -73,6 +73,20 @@ input[type=submit]{
   cursor: pointer;
   text-shadow: 2px 2px #000000;
 }
+
+input[type=button]{
+  background-color: #3366FF;
+  color: white;
+  font-size: 25px;
+  padding: 20px 40px;
+  margin: 10px ;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-shadow: 2px 2px #000000;
+  }
+
+
 button[type=submit]{
   background-color: #3366FF;
   color: white;
@@ -86,12 +100,13 @@ button[type=submit]{
 }
 
 input[type=text], input[type=password], input[type=email], select {
-  width: 100%;
+  width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  size: 30px;
 
 

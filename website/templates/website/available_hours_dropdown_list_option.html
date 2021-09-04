@@ -1,0 +1,8 @@
+
+    <option value="">--------------</option>
+
+{% for available_hour in available_hours %}
+
+    <option value="{{ available_hour.0 }}">{{ available_hour.1 }}</option>
+
+{% endfor %}

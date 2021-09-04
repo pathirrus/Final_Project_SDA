@@ -1,24 +1,8 @@
+
 {% extends 'website/base.html' %}
 
 {% block content %}
-Reservation
-    {% if user.is_authenticated %}
-        Zarezerwuj wizytę online:
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    Dzisiejsza data: {{ start_date }}
-    <p>max data:{{ end_date }}
 
-    {{ date_list }}
-    <input type="submit" value="Rezerwuj">
-    {{ available_hours }}
-</form>
-    {% else %}
-        Zaloguj się, aby zarezerwować wizytę online.
-        <form method="get" action="{% url 'login' %}">
-            <input type="submit" value="Zaloguj się!">
-        </form>
-    {% endif %}
+<h2>Wizyta zarezerwowana! Do zobaczenia w salonie</h2>
 
 {% endblock %}

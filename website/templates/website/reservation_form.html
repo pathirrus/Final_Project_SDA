@@ -1,0 +1,21 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h2>Dodaj usługę:</h2>
+  <form method="post" id="personForm" action="{% url 'website:create-reservation' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Dodaj usługę">
+    </form>
+
+    <script src="{% static 'website/index.js' %}"></script>
+
+{% else %}
+        Zaloguj się, aby zarezerwować wizytę online.
+        <form method="get" action="{% url 'login' %}">
+            <input type="submit" value="Zaloguj się!">
+        </form>
+    {% endif %}
+{% endblock %}
