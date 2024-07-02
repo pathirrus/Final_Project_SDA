@@ -1,0 +1,12 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+<h2>Usuń usługę:</h2>
+<form method="post">
+    {% csrf_token %}
+    <p>Czy chcesz usunąć usługę {{ service }}?</p>
+    <input type="submit" value="Potwierdź">
+
+</form>
+
+{% endblock %}
